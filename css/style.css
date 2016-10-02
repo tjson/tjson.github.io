@@ -25,7 +25,6 @@ header {
 
 .syntax-example {
   display: inline-block;
-  margin-left: 0.5em;
   margin-bottom: 0.5em;
   padding: 0.25em;
   font-size: 1.25em;
@@ -36,6 +35,7 @@ header {
 @media only screen and (min-width : 768px) {
   .syntax-example {
     font-size: 1.75em;
+    margin-left: 0.5em;
   }
 }
 
