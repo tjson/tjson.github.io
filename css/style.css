@@ -28,9 +28,15 @@ header {
   margin-left: 0.5em;
   margin-bottom: 0.5em;
   padding: 0.25em;
-  font-size: 1.75em;
+  font-size: 1.25em;
   font-weight: bold;
   border: 1px solid #eeeeee;
+}
+
+@media only screen and (min-width : 768px) {
+  .syntax-example {
+    font-size: 1.75em;
+  }
 }
 
 .syntax-example .tag-prefix {
