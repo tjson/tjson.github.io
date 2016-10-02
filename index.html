@@ -100,7 +100,7 @@
           To encode a Unicode string as seen in JSON as a TJSON string, add the
           <strong>u:</strong> prefix:
         </p>
-        <div class="string-example">
+        <div class="syntax-example">
           &quot;<span class="tag-prefix">u:</span>Hello world&quot;
         </div>
         <p>
@@ -120,10 +120,11 @@
       <div class="subsection">
         <h2 class="page-header">Binary Data</h2>
         <p>
-          TJSON supports multiple different formats for encoding binary data. Decoders are
-          encouraged to support them all. The default is <strong>Base64url</strong>, however
-          encoders can be configured with alternative, potentially more visually appealing
-          or well-recognized encodings for specific fields.
+          TJSON supports multiple different formats for encoding 8-bit clean binary data.
+          Decoders are encouraged to support them all. The default is
+          <strong>Base64url</strong>,
+          however encoders can be configured with alternative, potentially more visually
+          appealing or well-recognized encodings for specific fields.
         </p>
 
         <h3>Base64url</h3>
@@ -131,24 +132,65 @@
           Encodes binary data in "base64url" format as specified in
           <a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:
         </p>
-        <div class="string-example">
+        <div class="syntax-example">
           &quot;<span class="tag-prefix">b64:</span>SGVsbG8sIHdvcmxkIQ&quot;
         </div>
         <p>
           The encoded data should <em>NOT</em> be padded with "<b>=</b>" characters as it's stored
-          within a quote-delimited string.
+          within a quote-delimited string so its length is known in advance.
         </p>
         <p>
           The non-URL safe variant of Base64 is not supported by TJSON and should be rejected by
-          parsers (i.e. if it contains the "<b>+</b>" or "<b>/</b>" characters)
+          parsers (i.e. if it contains the "<b>+</b>" or "<b>/</b>" characters it should be
+          rejected)
         </p>
 
         <h3>Hexadecimal (a.k.a. Base16)</h3>
         <p>
           Encodes binary data in lower-case hexadecimal format:
         </p>
-        <div class="string-example">
+        <div class="syntax-example">
           &quot;<span class="tag-prefix">b16:</span>48656c6c6f2c20776f726c6421&quot;
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h2 class="page-header">Numeric Types</h2>
+        <p>
+          TJSON supports both integers and floating point numbers in separate formats that can
+          always be disambiguated.
+        </p>
+        <h3>Integers</h3>
+        <p>
+          In TJSON, integers are stored as strings, sidestepping integer precision issues with
+          JSON parsers that do floating point conversions:
+        </p>
+        <div class="syntax-example">
+          &quot;<span class="tag-prefix">i:</span>42&quot;
+        </div>
+        <p>
+          Integers otherwise utilize the <em>int</em> syntax as described in the JSON specification.
+        </p>
+        <h3>Floating Points</h3>
+        <p>
+          Floating points use the native number literal syntax provided by JSON and are not stored
+          as a tagged string:
+        </p>
+        <div class="syntax-example">0.42</div>
+        <p>
+          TJSON libraries should ensure that the resulting type for any such literals is a float.
+        </p>
+      </div>
+
+      <div class="subsection">
+        <h2 class="page-header">DateTimes</h2>
+        <p>
+          TJSON adds a literal syntax for date/time values. The format is based on
+          <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>, however the
+          use of the UTC time zone identifier "<b>Z</b>" is mandatory:
+        </p>
+        <div class="syntax-example">
+          &quot;<span class="tag-prefix">d:</span>2016-10-02T07:31:51Z&quot;
         </div>
       </div>
     </div>

@@ -18,11 +18,12 @@ header {
 }
 
 .page-header {
+  padding-top: 10px;
   padding-bottom: 5px;
   border-bottom: 1px solid #eeeeee;
 }
 
-.string-example {
+.syntax-example {
   display: inline-block;
   margin-left: 0.5em;
   margin-bottom: 0.5em;
@@ -32,7 +33,7 @@ header {
   border: 1px solid #eeeeee;
 }
 
-.string-example .tag-prefix {
+.syntax-example .tag-prefix {
   background: #ddddff;
   padding: 0 2px;
 }
