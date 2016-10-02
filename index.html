@@ -152,6 +152,10 @@
         <div class="syntax-example">
           &quot;<span class="tag-prefix">b16:</span>48656c6c6f2c20776f726c6421&quot;
         </div>
+        <p>
+          TJSON parsers should expressly reject the use of any upper case hexadecimal characters
+          and fail with an exception.
+        </p>
       </div>
 
       <div class="subsection">
@@ -192,6 +196,10 @@
         <div class="syntax-example">
           &quot;<span class="tag-prefix">d:</span>2016-10-02T07:31:51Z&quot;
         </div>
+        <p>
+          TJSON parsers should expressly reject the use of other time zone identifiers
+          and fail with an exception.
+        </p>
       </div>
     </div>
   </div>
