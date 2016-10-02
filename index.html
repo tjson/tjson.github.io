@@ -87,7 +87,7 @@
           </li>
           <li>
             <strong>Objects:</strong>
-            Key/value pairs; identical to JSON.
+            Name/value dictionaries; identical to JSON with Unicode String or Binary Data keys.
           </li>
         </ul>
       </div>
@@ -199,6 +199,28 @@
         <p>
           TJSON parsers should expressly reject the use of other time zone identifiers
           and fail with an exception.
+        </p>
+      </div>
+
+      <div class="subsection">
+        <h2 class="page-header">Objects</h2>
+        <p>
+          Objects (name/value dictionaries) use the same syntax in TJSON, but the name literal
+          is restricted to being either a Unicode String or Binary Data:
+        </p>
+
+        <h3>Unicode String Member Name</h3>
+        <div class="syntax-example">
+          {&quot;<span class="tag-prefix">u:</span>key&quot;: ...}
+        </div>
+
+        <h3>Binary Data Member Name</h3>
+        <div class="syntax-example">
+          {&quot;<span class="tag-prefix">b64:</span>YmluYXJ5IGtleQ&quot;: ...}
+        </div>
+
+        <p>
+          TJSON parsers should expressly reject the use of other types as member names.
         </p>
       </div>
     </div>
