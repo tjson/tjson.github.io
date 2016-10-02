@@ -36,59 +36,121 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <p>
-        <strong>TJSON</strong> (Tagged JSON) is a standard tagging scheme for richly typed data
-        stored inside of <a href="http://www.json.org">JSON</a> strings. It augments the existing
-        types already present in JSON in a way that's both unobtrusive and fully syntactically
-        compatible with existing JSON (i.e all TJSON documents are valid JSON documents and can
-        be understood by existing JSON parsers)
-      </p>
-      <p>
-        It codifies ad hoc practices already commonly seen throughout JSON into a standard format
-        for rich data which is self-describing, fully transcodable, and easy to canonicalize.
-      </p>
-      <p>
-        TJSON supports the following data types:
-      </p>
-      <ul>
-        <li>
-          <strong>Unicode Strings:</strong>
-          Strings in TJSON work just like they do in regular JSON, but carry a mandatory type tag.
-        </li>
-        <li>
-          <strong>Binary Data:</strong>
-          First-class support for 8-bit clean binary data, encoded in a variety of formats
-          including hexadecimal and Base64url.
-        </li>
-        <li>
-          <strong>Integers:</strong>
-          Integers in TJSON are variable length, are guaranteed to avoid floating point conversions,
-          and can be readily disambiguated from floating points. Since they are stored in strings,
-          they avoid common problems with floating point overflow which occur when working with
-          large numbers serialized in JSON.
-        </li>
-        <li>
-          <strong>Floating points:</strong>
-          Floating points in TJSON are identical to JSON, but avoid pitfalls involving certain
-          libraries coercing them to integers and can always be disambiguated from integers.
-        </li>
-        <li>
-          <strong>Value types:</strong>
-          TJSON supports the <em>true</em>, <em>false</em>, and <em>null</em> values from JSON.
-        </li>
-        <li>
-          <strong>DateTimes:</strong>
-          TJSON has a first-class type for representing date/time values, serialized as ISO 8601.
-        </li>
-        <li>
-          <strong>Arrays:</strong>
-          Lists of values; identical to JSON.
-        </li>
-        <li>
-          <strong>Objects:</strong>
-          Key/value pairs; identical to JSON.
-        </li>
-      </ul>
+      <div id="introduction">
+        <p>
+          <strong>TJSON</strong> (Tagged JSON) is a standard tagging scheme for richly typed data
+          stored inside of <a href="http://www.json.org">JSON</a> strings. It augments the existing
+          types already present in JSON in a way that's both unobtrusive and fully syntactically
+          compatible with existing JSON (i.e all TJSON documents are valid JSON documents and can
+          be understood by existing JSON parsers)
+        </p>
+        <p>
+          It codifies ad hoc practices already commonly seen throughout JSON into a standard format
+          for rich data which is self-describing, fully transcodable, and easy to canonicalize.
+        </p>
+        <p>
+          TJSON supports the following data types:
+        </p>
+        <ul>
+          <li>
+            <strong>Unicode Strings:</strong>
+            Strings in TJSON work just like they do in regular JSON, but carry a mandatory type tag.
+          </li>
+          <li>
+            <strong>Binary Data:</strong>
+            First-class support for 8-bit clean binary data, encoded in a variety of formats
+            including hexadecimal and Base64url.
+          </li>
+          <li>
+            <strong>Integers:</strong>
+            Integers in TJSON are variable length, are guaranteed to avoid floating point conversions,
+            and can be readily disambiguated from floating points. Since they are stored in strings,
+            they avoid common problems with floating point overflow which occur when working with
+            large numbers serialized in JSON.
+          </li>
+          <li>
+            <strong>Floating points:</strong>
+            Floating points in TJSON are identical to JSON, but avoid pitfalls involving certain
+            libraries coercing them to integers and can always be disambiguated from integers.
+          </li>
+          <li>
+            <strong>Value types:</strong>
+            TJSON supports the <em>true</em>, <em>false</em>, and <em>null</em> values from JSON.
+          </li>
+          <li>
+            <strong>DateTimes:</strong>
+            TJSON has a first-class type for representing date/time values, serialized as ISO 8601.
+          </li>
+          <li>
+            <strong>Arrays:</strong>
+            Lists of values; identical to JSON.
+          </li>
+          <li>
+            <strong>Objects:</strong>
+            Key/value pairs; identical to JSON.
+          </li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h2 class="page-header">Strings</h2>
+        <p>
+          In TJSON, all string literals begin with a mandatory tag, which consists of a small
+          sequence of alphanumeric characters followed by a "<strong>:</strong>" character.
+          To encode a Unicode string as seen in JSON as a TJSON string, add the
+          <strong>u:</strong> prefix:
+        </p>
+        <div class="string-example">
+          &quot;<span class="tag-prefix">u:</span>Hello world&quot;
+        </div>
+        <p>
+          Note that this prefix is <em>mandatory</em> in TJSON and prevents any cross-domain
+          ambiguities between tagged and untagged strings. Parsers which encounter an untagged
+          string should raise an exception.
+        </p>
+        <p>
+          Unlike JSON, TJSON mandates the use of
+          <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> encoding for all strings.
+          Other Unicode encodings (e.g. UCS-2 as seen in JavaScript) are expressly disallowed.
+          All TJSON documents should be valid UTF-8, and parsers should reject documents that
+          fail to decode as UTF-8.
+        </p>
+      </div>
+
+      <div class="subsection">
+        <h2 class="page-header">Binary Data</h2>
+        <p>
+          TJSON supports multiple different formats for encoding binary data. Decoders are
+          encouraged to support them all. The default is <strong>Base64url</strong>, however
+          encoders can be configured with alternative, potentially more visually appealing
+          or well-recognized encodings for specific fields.
+        </p>
+
+        <h3>Base64url</h3>
+        <p>
+          Encodes binary data in "base64url" format as specified in
+          <a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:
+        </p>
+        <div class="string-example">
+          &quot;<span class="tag-prefix">b64:</span>SGVsbG8sIHdvcmxkIQ&quot;
+        </div>
+        <p>
+          The encoded data should <em>NOT</em> be padded with "<b>=</b>" characters as it's stored
+          within a quote-delimited string.
+        </p>
+        <p>
+          The non-URL safe variant of Base64 is not supported by TJSON and should be rejected by
+          parsers (i.e. if it contains the "<b>+</b>" or "<b>/</b>" characters)
+        </p>
+
+        <h3>Hexadecimal (a.k.a. Base16)</h3>
+        <p>
+          Encodes binary data in lower-case hexadecimal format:
+        </p>
+        <div class="string-example">
+          &quot;<span class="tag-prefix">b16:</span>48656c6c6f2c20776f726c6421&quot;
+        </div>
+      </div>
     </div>
   </div>
 </div>
