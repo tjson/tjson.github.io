@@ -36,11 +36,58 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <strong>TJSON</strong> (Tagged JSON) is a standard tagging scheme for richly typed data stored
-      stored inside of JSON strings. It augments the existing types already present in JSON in a way
-      that's both unobtrusive and fully backwards compatible with existing JSON schemes. It codifies
-      conventions many are already doing in an ad hoc manner into a standard format for rich data
-      which is both self-describing and fully transcodable.
+      <p>
+        <strong>TJSON</strong> (Tagged JSON) is a standard tagging scheme for richly typed data
+        stored inside of JSON strings. It augments the existing types already present in JSON in a
+        way that's both unobtrusive and fully syntactically compatible with existing JSON (i.e all
+        TJSON documents are valid JSON documents and can be understood by existing JSON parsers)
+      </p>
+      <p>
+        It codifies ad hoc practices already commonly seen throughout JSON into a standard format
+        for rich data which is self-describing, fully transcodable, and easy to canonicalize.
+      </p>
+      <p>
+        TJSON supports the following data types:
+      </p>
+      <ul>
+        <li>
+          <strong>Unicode Strings:</strong>
+          Strings in TJSON work just like they do in regular JSON, but carry a mandatory type tag.
+        </li>
+        <li>
+          <strong>Binary Data:</strong>
+          First-class support for 8-bit clean binary data, encoded in a variety of formats
+          including hexadecimal and Base64url.
+        </li>
+        <li>
+          <strong>Integers:</strong>
+          Integers in TJSON are variable length, are guaranteed to avoid floating point conversions,
+          and can be readily disambiguated from floating points. Since they are stored in strings,
+          they avoid common problems with floating point overflow which occur when working with
+          large numbers serialized in JSON.
+        </li>
+        <li>
+          <strong>Floating points:</strong>
+          Floating points in TJSON are identical to JSON, but avoid pitfalls involving certain
+          libraries coercing them to integers and can always be disambiguated from integers.
+        </li>
+        <li>
+          <strong>Value types:</strong>
+          TJSON supports the <em>true</em>, <em>false</em>, and <em>null</em> values from JSON.
+        </li>
+        <li>
+          <strong>DateTimes:</strong>
+          TJSON has a first-class type for representing date/time values, serialized as ISO 8601.
+        </li>
+        <li>
+          <strong>Arrays:</strong>
+          Lists of values; identical to JSON.
+        </li>
+        <li>
+          <strong>Objects:</strong>
+          Key/value pairs; identical to JSON.
+        </li>
+      </ul>
     </div>
   </div>
 </div>
