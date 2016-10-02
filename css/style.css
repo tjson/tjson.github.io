@@ -4,6 +4,10 @@ header {
   margin-bottom: 20px;
 }
 
+header h3 {
+  font-size: 1.5em;
+}
+
 #logo {
   margin: 0 auto;
 }
