@@ -248,19 +248,19 @@
 	  ul p {
 	  margin-left: 0em;
 	  }
-		#forkme_banner {
-	  display: inline-block;
-	  float: right;
-	  z-index: 10;
-	  padding: 12px 50px 12px 10px;
-	  margin-bottom: 10px;
-	  color: #fff;
-	  background: url('img/blacktocat.png') #0090ff no-repeat 95% 50%;
-	  font-weight: 700;
-	  box-shadow: 0 0 10px rgba(0,0,0,.5);
-	  border-bottom-left-radius: 2px;
-	  border-bottom-right-radius: 2px;
-		}
+    #forkme_banner {
+    display: inline-block;
+    float: right;
+    z-index: 10;
+    padding: 12px 50px 12px 10px;
+    margin-bottom: 10px;
+    color: #fff;
+    background: url('img/blacktocat.png') #0090ff no-repeat 95% 50%;
+    font-weight: 700;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    }	
 	  .comment {
 	  background-color: yellow;
 	  }
@@ -387,6 +387,7 @@
 
   <link href="#rfc.toc" rel="Contents"/>
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Conventions Used in This Document"/>
 <link href="#rfc.references" rel="Chapter" title="2 Normative References"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
@@ -394,16 +395,17 @@
   <meta name="generator" content="xml2rfc version 2.5.1 - http://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Arcieri, T." />
+  <meta name="dct.creator" content="Arcieri, T. and B. Laurie" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-tjson-spec" />
   <meta name="dct.issued" scheme="ISO8601" content="2016-10-2" />
-  <meta name="dct.abstract" content="Tagged JavaScript Object Notation (TJSON) is a JavaScript Object Notation (JSON) " />
-  <meta name="description" content="Tagged JavaScript Object Notation (TJSON) is a JavaScript Object Notation (JSON) " />
+  <meta name="dct.abstract" content="Tagged JavaScript Object Notation (TJSON) is a data interchange format which is backwards compatible with the JavaScript Object Notation (JSON)[ @!RFC7159] format. It adds first-class type annotations (&quot;tags&quot;) for supporting a richer set of types within JSON documents.  " />
+  <meta name="description" content="Tagged JavaScript Object Notation (TJSON) is a data interchange format which is backwards compatible with the JavaScript Object Notation (JSON)[ @!RFC7159] format. It adds first-class type annotations (&quot;tags&quot;) for supporting a richer set of types within JSON documents.  " />
 
 </head>
 
 <body>
   <a id="forkme_banner" href="https://github.com/tjson/tjson-spec">Fork me on GitHub</a>
+
   <table class="header">
     <tbody>
     
@@ -413,15 +415,15 @@
 </tr>
 <tr>
   <td class="left">Internet-Draft</td>
-  <td class="right">October 2, 2016</td>
+  <td class="right"></td>
 </tr>
 <tr>
   <td class="left">Intended status: Informational</td>
-  <td class="right"></td>
+  <td class="right">B. Laurie</td>
 </tr>
 <tr>
   <td class="left">Expires: April 5, 2017</td>
-  <td class="right"></td>
+  <td class="right">October 2, 2016</td>
 </tr>
 
     	
@@ -434,7 +436,7 @@
   <h1 id="rfc.abstract">
   <a href="#rfc.abstract">Abstract</a>
 </h1>
-<p>Tagged JavaScript Object Notation (TJSON) is a JavaScript Object Notation (JSON) <a href="#RFC7159">[RFC7159]</a> compatible data interchange format with first-class type annotations ("tags") for supporting a richer set of types within JSON documents.  </p>
+<p>Tagged JavaScript Object Notation (TJSON) is a data interchange format which is backwards compatible with the JavaScript Object Notation (JSON)[ @!RFC7159] format. It adds first-class type annotations ("tags") for supporting a richer set of types within JSON documents.  </p>
 <h1 id="rfc.status">
   <a href="#rfc.status">Status of This Memo</a>
 </h1>
@@ -454,17 +456,29 @@
   <ul class="toc">
 
   	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
-<li>2.   <a href="#rfc.references">Normative References</a></li>
-<li><a href="#rfc.authors">Author's Address</a></li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Conventions Used in This Document</a></li>
+</ul><li>2.   <a href="#rfc.references">Normative References</a></li>
+<li><a href="#rfc.authors">Authors' Addresses</a></li>
 
 
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
-<p id="rfc.section.1.p.1">TBD </p>
+<p id="rfc.section.1.p.1">Tagged JavaScript Object Notation (TJSON) is a set of backwards-compatible extensions to JavaScript Object Notation (JSON) <a href="#RFC7159">[RFC7159]</a> which enrich the set of types the format is able to express.  </p>
+<p id="rfc.section.1.p.2">TJSON can represent six primitive types (strings, binary data, integers, floating points, datetimes, and null) and two structured types (objects and arrays).  </p>
+<p id="rfc.section.1.p.3">To extend JSON with additional types in a backwards-compatible manner, TJSON adds a special mandatory "tag" to each JSON string which identifies the data type and, optionally, encoding format. A tag consists of one or more alphanumeric characters, followed by the colon ":" character.  All strings in TJSON MUST have a valid tag prefix.  </p>
+<p id="rfc.section.1.p.4">TJSON is intended to simplify transcoding documents from other interchange formats which disambiguate strings from binary data, and also improve the ability to both canonicalize and authenticate JSON documents.  </p>
+<h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#conventions-used-in-this-document" id="conventions-used-in-this-document">Conventions Used in This Document</a></h1>
+<p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a>.  </p>
 <h1 id="rfc.references"><a href="#rfc.references">2.</a> Normative References</h1>
 <table>
   <tbody>
+    <tr>
+      <td class="reference">
+        <b id="RFC2119">[RFC2119]</b>
+      </td>
+      <td class="top"><a>Bradner, S.</a>, "<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+    </tr>
     <tr>
       <td class="reference">
         <b id="RFC7159">[RFC7159]</b>
@@ -474,7 +488,7 @@
   </tbody>
 </table>
 <h1 id="rfc.authors">
-  <a href="#rfc.authors">Author's Address</a>
+  <a href="#rfc.authors">Authors' Addresses</a>
 </h1>
 <div class="avoidbreak">
   <address class="vcard">
@@ -482,6 +496,26 @@
 	  <span class="fn">Tony Arcieri</span> 
 	  <span class="n hidden">
 		<span class="family-name">Arcieri</span>
+	  </span>
+	</span>
+	<span class="org vcardline"></span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Ben Laurie</span> 
+	  <span class="n hidden">
+		<span class="family-name">Laurie</span>
 	  </span>
 	</span>
 	<span class="org vcardline"></span>
