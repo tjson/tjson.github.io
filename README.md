@@ -5,5 +5,5 @@ Cloudflare's Universal SSL service and CDN.
 
 For the specification, please go here:
 
-[TJSON Specification]: https://github.com/tjson/tjson-spec
+[TJSON Specification](https://github.com/tjson/tjson-spec)
 
