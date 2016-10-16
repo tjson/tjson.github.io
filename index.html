@@ -87,7 +87,8 @@
           </li>
           <li>
             <strong>DateTimes:</strong>
-            TJSON has a first-class type for representing date/time values, serialized as ISO 8601.
+            TJSON has a first-class type for representing date/time values,
+            serialized as a subset of RFC 3339 (an ISO 8601-alike).
           </li>
           <li>
             <strong>Arrays:</strong>
@@ -198,7 +199,7 @@
         <h2 class="page-header">DateTimes</h2>
         <p>
           TJSON adds a literal syntax for date/time values. The format is based on
-          <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>, however the
+          <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a>, however the
           use of the UTC time zone identifier "<b>Z</b>" is mandatory:
         </p>
         <div class="syntax-example">
