@@ -177,10 +177,21 @@
         <h3>Integers</h3>
         <p>
           In TJSON, integers are stored as strings, sidestepping integer precision issues with
-          JSON parsers that do floating point conversions:
+          JSON parsers that do floating point conversions.
+        </p>
+        <p>
+          The following is an example of a <strong>signed integer</strong>, which can be any value
+          in the range <pre>-(2**63)</pre> to <pre>(2**63)-1</pre>.
         </p>
         <div class="syntax-example">
           &quot;<span class="tag-prefix">i:</span>42&quot;
+        </div>
+        <p>
+          The following is an example of an <strong>unsigned integer</strong>, which can be any value
+          in the range <pre>0</pre> to <pre>(2**64)-1</pre>:
+        </p>
+        <div class="syntax-example">
+          &quot;<span class="tag-prefix">u:</span>18446744073709551615&quot;
         </div>
         <p>
           Integers otherwise utilize the <em>int</em> syntax as described in the JSON specification.
