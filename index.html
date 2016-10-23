@@ -61,7 +61,7 @@
         </p>
         <ul>
           <li>
-            <strong>Unicode Strings:</strong>
+            <strong>UTF-8 Strings:</strong>
             Strings in TJSON work just like they do in regular JSON, but carry a mandatory type tag.
           </li>
           <li>
@@ -96,7 +96,7 @@
           </li>
           <li>
             <strong>Objects:</strong>
-            Name/value dictionaries; identical to JSON with Unicode String or Binary Data keys.
+            Name/value dictionaries; identical to JSON with UTF-8 String or Binary Data keys.
           </li>
         </ul>
       </div>
@@ -107,10 +107,10 @@
           In TJSON, all string literals begin with a mandatory tag, which consists of a small
           sequence of alphanumeric characters followed by a "<strong>:</strong>" character.
           To encode a Unicode string as seen in JSON as a TJSON string, add the
-          <strong>u:</strong> prefix:
+          <strong>s:</strong> prefix:
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">u:</span>Hello world&quot;
+          &quot;<span class="tag-prefix">s:</span>Hello world&quot;
         </div>
         <p>
           Note that this prefix is <em>mandatory</em> in TJSON and prevents any cross-domain
@@ -215,12 +215,12 @@
         <h2 class="page-header">Objects</h2>
         <p>
           Objects (name/value dictionaries) use the same syntax in TJSON, but the name literal
-          is restricted to being either a Unicode String or Binary Data:
+          is restricted to being either a UTF-8 String or Binary Data:
         </p>
 
-        <h3>Unicode String Member Name</h3>
+        <h3>UTF-8 String Member Name</h3>
         <div class="syntax-example">
-          {&quot;<span class="tag-prefix">u:</span>key&quot;: ...}
+          {&quot;<span class="tag-prefix">s:</span>key&quot;: ...}
         </div>
 
         <h3>Binary Data Member Name</h3>
