@@ -82,13 +82,14 @@
             libraries coercing them to integers and can always be disambiguated from integers.
           </li>
           <li>
+            <strong>Timestamps:</strong>
+            TJSON has a first-class type for representing date/time timestamp values,
+            serialized as a subset of RFC 3339 (an ISO 8601-alike).
+          </li>
+
+          <li>
             <strong>Value types:</strong>
             TJSON supports the <em>true</em>, <em>false</em>, and <em>null</em> values from JSON.
-          </li>
-          <li>
-            <strong>DateTimes:</strong>
-            TJSON has a first-class type for representing date/time values,
-            serialized as a subset of RFC 3339 (an ISO 8601-alike).
           </li>
           <li>
             <strong>Arrays:</strong>
@@ -196,14 +197,15 @@
       </div>
 
       <div class="subsection">
-        <h2 class="page-header">DateTimes</h2>
+        <h2 class="page-header">Timestamp</h2>
         <p>
-          TJSON adds a literal syntax for date/time values. The format is based on
+          TJSON adds a literal syntax for timestamp values. The format is based on
           <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a>, however the
-          use of the UTC time zone identifier "<b>Z</b>" is mandatory:
+          use of the UTC time zone identifier "<b>Z</b>" is mandatory (i.e. all
+          timestamps are Z-normalized):
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">d:</span>2016-10-02T07:31:51Z&quot;
+          &quot;<span class="tag-prefix">t:</span>2016-10-02T07:31:51Z&quot;
         </div>
         <p>
           TJSON parsers should expressly reject the use of other time zone identifiers
