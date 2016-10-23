@@ -44,10 +44,6 @@ header h3 {
 }
 
 .syntax-example .tag-prefix {
-  background: #ddddff;
+  color: #ba160c;
   padding: 0 2px;
-}
-
-h3 .tag-prefix {
-  background: #ddddff;
 }
