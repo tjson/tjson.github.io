@@ -49,6 +49,7 @@ a.header-github:before {
 a.header-group:before {
   width: 25px;
   height: 19px;
+  margin-bottom: 3px;
   background-image: url(../img/icons/email.png);
 }
 
