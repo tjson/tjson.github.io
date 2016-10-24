@@ -8,6 +8,55 @@ header h3 {
   font-size: 1.5em;
 }
 
+#header-links {
+  text-align: right;
+}
+
+#header-links > a {
+  display: inline-block;
+  text-align: center;
+  min-width: 75px;
+  color: #4a4a4a;
+}
+
+#header-links > a > small {
+  display: block;
+  font-size: 14px;
+}
+
+#header-links > a:before {
+  content: "";
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+}
+
+a.header-specs:before {
+  width: 22px;
+  height: 25px;
+  background-image: url(../img/icons/specs.png);
+}
+
+a.header-github:before {
+  width: 25px;
+  height: 25px;
+  background-image: url(../img/icons/github.png);
+}
+
+a.header-group:before {
+  width: 25px;
+  height: 19px;
+  background-image: url(../img/icons/email.png);
+}
+
+a.header-gitter:before {
+  width: 25px;
+  height: 25px;
+  background-image: url(../img/icons/gitter.png);
+}
+
+
 #logo {
   margin: 0 auto;
 }
