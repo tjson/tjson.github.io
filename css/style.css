@@ -34,6 +34,12 @@ header h3 {
   display: inline-block;
 }
 
+a.header-faq:before {
+  width: 25px;
+  height: 25px;
+  background-image: url(../img/icons/faq.png);
+}
+
 a.header-specs:before {
   width: 22px;
   height: 25px;
