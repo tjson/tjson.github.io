@@ -1,0 +1,13 @@
+title: "TJSON: Tagged JSON with rich type annotations"
+email: tjson@googlegroups.com
+description: >
+  Tagged JavaScript Object Notation (TJSON) is a data interchange format
+  which is backwards compatible with the JavaScript Object Notation (JSON)
+  format. It adds first-class type annotations ("tags") for supporting a
+  richer set of types within JSON documents.
+baseurl: ""
+url: "https://www.tjson.org"
+github_username: tjson
+
+# Build settings
+markdown: kramdown
