@@ -8,9 +8,37 @@ title: "TJSON: Frequently Asked Questions"
 <div class="col-lg-12">
 
 <h3>Frequently Asked Questions</h3>
+<br>
+
+<h5>Q: Why not use a binary format like BSON, MessagePack, or Protobufs?</h5>
+<p>
+  A: TJSON is intended to supplement binary message formats, not replace them.
+  It provides a syntax which should be able to express most of the same types
+  as binary formats in both a human readable/writable and cryptographically
+  authenticatable manner. It should also hopefully support lossless bidirectional
+  transcoding to and from binary formats.
+</p>
+
+<h5>Q: Why isn't there a TJSON implementation available for my language yet?</h5>
+<p>
+  A: Language support for TJSON is scant right now, but we're working on it.
+  Feel free to make a TJSON implementation for your language, and if you'd
+  like, request to host it under the TJSON GitHub organization.
+</p>
 
 <p>
-  Coming soon!
+  In the meantime you can consume TJSON documents by stripping off the tags
+  and doing manual postprocessing. Chances are if you're working with rich
+  types in JSON documents, you're probably doing this postprocessing by hand
+  already.
+</p>
+
+<h5>Q: What additional features are planned?</h5>
+<p>
+  A: TJSON is intended to support format-independent cryptographic authentication
+  using the <a href="https://github.com/benlaurie/objecthash">objecthash</a>
+  content hash algorithm. This algorithm produces digests which are the same
+  same whether a document is encoded in a binary format or encoded as TJSON.
 </p>
 
 </div>
