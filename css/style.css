@@ -17,7 +17,7 @@ header h3 {
 #header-links > a {
   display: inline-block;
   text-align: center;
-  min-width: 75px;
+  min-width: 70px;
   color: #4a4a4a;
 }
 
