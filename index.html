@@ -104,6 +104,35 @@ title: "TJSON: Tagged JSON with rich type annotations"
           appealing or well-recognized encodings for specific fields.
         </p>
 
+        <h3>Hexadecimal (a.k.a. Base16)</h3>
+        <p>
+          Encodes binary data in lower-case hexadecimal format:
+        </p>
+        <div class="syntax-example">
+          &quot;<span class="tag-prefix">b16:</span>48656c6c6f2c20776f726c6421&quot;
+        </div>
+        <p>
+          TJSON parsers should expressly reject the use of any upper case Base32 characters
+          and fail with an exception.
+        </p>
+        <p>
+          TJSON parsers should expressly reject the use of any upper case hexadecimal characters
+          and fail with an exception.
+        </p>
+
+        <h3>Base32</h3>
+        <p>
+          Encodes binary data in "base32" format as specified in
+          <a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:
+        </p>
+        <div class="syntax-example">
+          &quot;<span class="tag-prefix">b32:</span>jbswy3dpfqqho33snrscc&quot;
+        </div>
+        <p>
+          The encoded data should <em>NOT</em> be padded with "<b>=</b>" characters as it's stored
+          within a quote-delimited string so its length is known in advance.
+        </p>
+
         <h3>Base64url</h3>
         <p>
           Encodes binary data in "base64url" format as specified in
@@ -120,18 +149,6 @@ title: "TJSON: Tagged JSON with rich type annotations"
           The non-URL safe variant of Base64 is not supported by TJSON and should be rejected by
           parsers (i.e. if it contains the "<b>+</b>" or "<b>/</b>" characters it should be
           rejected)
-        </p>
-
-        <h3>Hexadecimal (a.k.a. Base16)</h3>
-        <p>
-          Encodes binary data in lower-case hexadecimal format:
-        </p>
-        <div class="syntax-example">
-          &quot;<span class="tag-prefix">b16:</span>48656c6c6f2c20776f726c6421&quot;
-        </div>
-        <p>
-          TJSON parsers should expressly reject the use of any upper case hexadecimal characters
-          and fail with an exception.
         </p>
       </div>
 
