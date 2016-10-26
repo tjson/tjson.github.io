@@ -10,6 +10,15 @@ title: "TJSON: Frequently Asked Questions"
 <h3>Frequently Asked Questions</h3>
 <br>
 
+<h5>Q: Why not use a binary format like BSON, MessagePack, or Protobufs?</h5>
+<p>
+  A: TJSON is intended to supplement binary message formats, not replace them.
+  It provides a syntax which should be able to express most of the same types
+  as binary formats in both a human readable/writable and cryptographically
+  authenticatable manner. It should also hopefully support lossless bidirectional
+  transcoding to and from binary formats.
+</p>
+
 <h5>
   Q: How do you avoid the fact that <a
      href="http://seriot.ch/parsing_json.html">parsing JSON is a minefield</a>?
@@ -22,15 +31,6 @@ title: "TJSON: Frequently Asked Questions"
   <a href="https://github.com/tjson/tjson-spec/blob/master/draft-tjson-examples.txt">
   a comprehensive set of test cases</a> to ensure conforming parsers exhibit
   the same behavior when parsing TJSON documents.
-</p>
-
-<h5>Q: Why not use a binary format like BSON, MessagePack, or Protobufs?</h5>
-<p>
-  A: TJSON is intended to supplement binary message formats, not replace them.
-  It provides a syntax which should be able to express most of the same types
-  as binary formats in both a human readable/writable and cryptographically
-  authenticatable manner. It should also hopefully support lossless bidirectional
-  transcoding to and from binary formats.
 </p>
 
 <h5>Q: Why isn't there a TJSON implementation available for my language yet?</h5>
