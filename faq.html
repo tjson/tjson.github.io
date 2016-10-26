@@ -10,6 +10,20 @@ title: "TJSON: Frequently Asked Questions"
 <h3>Frequently Asked Questions</h3>
 <br>
 
+<h5>
+  Q: How do you avoid the fact that <a
+     href="http://seriot.ch/parsing_json.html">parsing JSON is a minefield</a>?
+</h5>
+<p>
+  A: TJSON imposes a number of strictness requirements which are not present
+  in JSON itself. For example, UTF-8 is the only valid TJSON string encoding
+  and repeated keys in objects are disallowed. Additionally, the TJSON
+  specification also comes with
+  <a href="https://github.com/tjson/tjson-spec/blob/master/draft-tjson-examples.txt">
+  a comprehensive set of test cases</a> to ensure conforming parsers exhibit
+  the same behavior when parsing TJSON documents.
+</p>
+
 <h5>Q: Why not use a binary format like BSON, MessagePack, or Protobufs?</h5>
 <p>
   A: TJSON is intended to supplement binary message formats, not replace them.
