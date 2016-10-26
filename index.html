@@ -112,10 +112,6 @@ title: "TJSON: Tagged JSON with rich type annotations"
           &quot;<span class="tag-prefix">b16:</span>48656c6c6f2c20776f726c6421&quot;
         </div>
         <p>
-          TJSON parsers should expressly reject the use of any upper case Base32 characters
-          and fail with an exception.
-        </p>
-        <p>
           TJSON parsers should expressly reject the use of any upper case hexadecimal characters
           and fail with an exception.
         </p>
@@ -131,6 +127,10 @@ title: "TJSON: Tagged JSON with rich type annotations"
         <p>
           The encoded data should <em>NOT</em> be padded with "<b>=</b>" characters as it's stored
           within a quote-delimited string so its length is known in advance.
+        </p>
+        <p>
+          TJSON parsers should expressly reject the use of any upper case Base32 characters
+          and fail with an exception.
         </p>
 
         <h3>Base64url</h3>
