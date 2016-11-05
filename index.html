@@ -171,6 +171,14 @@ title: "TJSON: Tagged JSON with rich type annotations"
         <div class="syntax-example">
           {&quot;nested-array<span class="tag-prefix">:A&lt;A&lt;s&gt;&gt;</span>&quot;: [["Nested"], ["Array!"]]}
         </div>
+
+        <p>
+          Or objects nested within arrays:
+        </p>
+
+        <div class="syntax-example">
+          {&quot;nested-object<span class="tag-prefix">:A&lt;O&gt;</span>&quot;: [{&quot;nested<span class="tag-prefix">:s</span>&quot;: "object"}]}
+        </div>
       </div>
 
       <div class="subsection">
