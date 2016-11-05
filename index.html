@@ -21,33 +21,56 @@ title: "TJSON: Tagged JSON with rich type annotations"
         </p>
         <p>
           It codifies ad hoc practices already commonly seen throughout JSON into a standard format
-          for rich data which is self-describing, fully transcodable, and easy to canonicalize.
+          for rich data which is self-describing and fully transcodable.
+        </p>
+        <p>
+          TJSON documents are amenable to "content-aware hashing" where different encodings of the
+          same data can share the same content hash and therefore the same cryptographic signature.
+          This is possible with content hash algorithms that are aware of the underlying structure
+          of data, such as
+          <a href="https://github.com/benlaurie/objecthash">Ben Laurie's objecthash</a>.
         </p>
         <p>
           TJSON supports the following data types:
         </p>
         <ul>
           <li>
-            <strong>UTF-8 Strings:</strong>
-            Strings in TJSON work just like they do in regular JSON, but carry a mandatory type tag.
+            <strong>Objects:</strong>
+            Name/value dictionaries. The names of objects in TJSON carry a postfix "tag" which acts
+            as a type annotation for the associated value. See the descriptions of "Strings" below
+            for more information.
+          </li>
+          <li>
+            <strong>Arrays:</strong>
+            Lists of values; identical to JSON, but typed by their containing objects. Unlike
+            JSON, arrays cannot be used as a top-level expression: only objects are allowed.
+          </li>
+          <li>
+            <strong>Strings:</strong>
+            TJSON strings are Unicode and always serialized as UTF-8. When used as the name of a
+            member of an object, they carry a mandatory "tag" which functions as a self-describing
+            type annotation which provides a type signature for the associated value.
           </li>
           <li>
             <strong>Binary Data:</strong>
             First-class support for 8-bit clean binary data, encoded in a variety of formats
-            including hexadecimal and Base64url.
+            including hexadecimal (a.k.a. base16), base32, and base64url.
           </li>
           <li>
-            <strong>Integers:</strong>
-            Integers in TJSON are variable length, are guaranteed to avoid floating point conversions,
-            and can be readily disambiguated from floating points. Since they are stored in strings,
-            they avoid common problems with floating point overflow which occur when working with
-            large numbers serialized in JSON.
+            <strong>Numbers:</strong>
           </li>
-          <li>
-            <strong>Floating points:</strong>
-            Floating points in TJSON are identical to JSON, but avoid pitfalls involving certain
-            libraries coercing them to integers and can always be disambiguated from integers.
-          </li>
+          <ul>
+            <li>
+              <strong>Integers:</strong>
+              TJSON always supports the full ranges both signed and unsigned 64-bit integers,
+              serialized in strings.
+            </li>
+            <li>
+              <strong>Floating points:</strong>
+              Floating point numbers in TJSON are identical to JSON, but can always be disambiguated
+              from integers.
+            </li>
+          </ul>
           <li>
             <strong>Timestamps:</strong>
             TJSON has a first-class type for representing date/time timestamp values,
@@ -58,36 +81,116 @@ title: "TJSON: Tagged JSON with rich type annotations"
             <strong>Value types:</strong>
             TJSON supports the <em>true</em>, <em>false</em>, and <em>null</em> values from JSON.
           </li>
-          <li>
-            <strong>Arrays:</strong>
-            Lists of values; identical to JSON.
-          </li>
-          <li>
-            <strong>Objects:</strong>
-            Name/value dictionaries; identical to JSON with UTF-8 String or Binary Data keys.
-          </li>
         </ul>
+      </div>
+
+      <div class="subsection">
+        <h2 class="page-header">Objects</h2>
+        <p>
+          Objects are the <sem>only</em> type allowed at the top-level of a TJSON document.
+          Many ordinary JSON parsers accept arrays or other types as top-level expressions. This
+          is <em>NOT</em> the case in TJSON: objects-only at the top-level.
+        </p>
+        <p>
+          Objects in TJSON use the same syntax as JSON, but each member name contains a "tag"
+          which annotates the type of the associated value of the member.
+        </p>
+
+        <p>
+          Below is an example of an object whose value is a Unicode String:
+        </p>
+
+        <div class="syntax-example">
+          {&quot;hello-world<span class="tag-prefix">:s</span>&quot;: "Hello, world!"}
+        </div>
+
+        <p>
+          This example consists of an object whose only member is named <em>"hello-world"</em>
+          and whose corresponding value is the <em>string (:s)</em> encoded in UTF-8 whose
+          contents are <em>"Hello, world!"</em>
+        </p>
+
+        <p>
+          Member names in TJSON must be distinct. The use of the same member name more
+          than once in the same object is an error, regardless of of the same name is used
+          for the same value, same types, or multiple different types. TJSON names are
+          single-use only.
+        </p>
+
+        <p>
+          TJSON uses the case of the first letter of the name of a type to distinguish
+          between scalar (single value) and non-scalar (collection) types. The syntax for
+          identifying a nested TJSON object is a capital "O" letter: (NOT zero)
+        </p>
+
+        <div class="syntax-example">
+          {&quot;hello-object<span class="tag-prefix">:O</span>&quot;: {&quot;hello-string<span class="tag-prefix">:s</span>&quot;: "Hello, world!"}}
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h2 class="page-header">Arrays</h2>
+        <p>
+          Arrays are not allowed as a toplevel expression in TJSON. The following is <em>NOT</em>
+          a valid TJSON document, because toplevel arrays are NOT allowed in TJSON:
+        </p>
+
+        <div class="syntax-example syntax-invalid">
+          [&quot;No toplevel arrays in TJSON!&quot;]
+        </div>
+
+        <p>
+          Arrays <i>MUST</i> first be wrapped in an object, from which they inherit their type
+          information. Arrays are described by an "A" tag (non-scalar types in TJSON are
+          capitalized) however this tag alone is not sufficient:
+        </p>
+
+        <div class="syntax-example syntax-invalid">
+          {&quot;not-quite-valid<span class="tag-prefix">:A</span>&quot;: ["Hello, world!"]}
+        </div>
+
+        <p>
+          To properly tag TJSON array, you <i>MUST</i> also include the type of its contents in
+          the tag. The following is valid array syntax:
+        </p>
+
+        <div class="syntax-example">
+          {&quot;valid-array<span class="tag-prefix">:A&lt;s&gt;</span>&quot;: ["Hello, world!"]}
+        </div>
+
+        <p>
+          The above syntax describes an <em>array</em> of <em>strings</em>. It might remind you
+          of <em>generic</em> syntax from statically typed programming languages. TJSON contains
+          a tiny type system it uses to verify type annotations.
+        </p>
+
+        <p>
+          The syntax can be nested to support multidimensional arrays:
+        </p>
+
+        <div class="syntax-example">
+          {&quot;nested-array<span class="tag-prefix">:A&lt;A&lt;s&gt;&gt;</span>&quot;: [["Nested"], ["Array!"]]}
+        </div>
       </div>
 
       <div class="subsection">
         <h2 class="page-header">Strings</h2>
         <p>
-          In TJSON, all string literals begin with a mandatory tag, which consists of a small
-          sequence of alphanumeric characters followed by a "<strong>:</strong>" character.
-          To encode a Unicode string as seen in JSON as a TJSON string, add the
-          <strong>s:</strong> prefix:
+          As an element of an array, or a member of an object, strings have the same syntax as
+          they do in JSON. But when used as the name of an object member, strings carry a special
+          postfix tag which acts as a type annotation/signature for the value:
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">s:</span>Hello world&quot;
+          {&quot;hello-string<span class="tag-prefix">:s</span>&quot;: "I'm a string!"}
         </div>
         <p>
-          Note that this prefix is <em>mandatory</em> in TJSON and prevents any cross-domain
-          ambiguities between tagged and untagged strings. Parsers which encounter an untagged
-          string should raise an exception.
+          Note that a posfix tag is <em>mandatory</em> for all object member names in TJSON and
+          prevents any ambiguities between tagged and untagged strings. Parsers which encounter
+          untagged names for object members should raise an exception.
         </p>
         <p>
-          Unlike JSON, TJSON mandates the use of
-          <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> encoding for all strings.
+          Unlike JSON, TJSON strings <em>MUST</em> be encoded as
+          <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>.
           Other Unicode encodings (e.g. UCS-2 as seen in JavaScript) are expressly disallowed.
           All TJSON documents should be valid UTF-8, and parsers should reject documents that
           fail to decode as UTF-8.
@@ -99,7 +202,7 @@ title: "TJSON: Tagged JSON with rich type annotations"
         <p>
           TJSON supports multiple different formats for encoding 8-bit clean binary data.
           Decoders are encouraged to support them all. The default is
-          <strong>Base64url</strong>,
+          <strong>base64url</strong>,
           however encoders can be configured with alternative, potentially more visually
           appealing or well-recognized encodings for specific fields.
         </p>
@@ -109,7 +212,7 @@ title: "TJSON: Tagged JSON with rich type annotations"
           Encodes binary data in lower-case hexadecimal format:
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">b16:</span>48656c6c6f2c20776f726c6421&quot;
+          {&quot;hello-base-sixteen<span class="tag-prefix">:b16</span>&quot;: "48656c6c6f2c20776f726c6421"}
         </div>
         <p>
           TJSON parsers should expressly reject the use of any upper case hexadecimal characters
@@ -122,7 +225,7 @@ title: "TJSON: Tagged JSON with rich type annotations"
           <a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">b32:</span>jbswy3dpfqqho33snrscc&quot;
+          {&quot;hello-base-thirty-two<span class="tag-prefix">:b32</span>&quot;: "jbswy3dpfqqho33snrscc"}
         </div>
         <p>
           The encoded data should <em>NOT</em> be padded with "<b>=</b>" characters as it's stored
@@ -139,7 +242,7 @@ title: "TJSON: Tagged JSON with rich type annotations"
           <a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">b64:</span>SGVsbG8sIHdvcmxkIQ&quot;
+          {&quot;hello-base-sixty-four-url<span class="tag-prefix">:b64</span>&quot;: "SGVsbG8sIHdvcmxkIQ"}
         </div>
         <p>
           The encoded data should <em>NOT</em> be padded with "<b>=</b>" characters as it's stored
@@ -150,10 +253,17 @@ title: "TJSON: Tagged JSON with rich type annotations"
           parsers (i.e. if it contains the "<b>+</b>" or "<b>/</b>" characters it should be
           rejected)
         </p>
+        <p>
+          Because "base64url" is the default encoding for TJSON, the following shorthand variant
+          of the type name is available, and <em>SHOULD</em> be used by default:
+        </p>
+        <div class="syntax-example">
+          {&quot;base-sixty-four-is-default<span class="tag-prefix">:b</span>&quot;: "SGVsbG8sIHdvcmxkIQ"}
+        </div>
       </div>
 
       <div class="subsection">
-        <h2 class="page-header">Numeric Types</h2>
+        <h2 class="page-header">Numbers</h2>
         <p>
           TJSON supports both integers and floating point numbers in separate formats that can
           always be disambiguated.
@@ -168,14 +278,14 @@ title: "TJSON: Tagged JSON with rich type annotations"
           in the range <em>-(2**63)</em> to <em>(2**63)-1</em>.
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">i:</span>42&quot;
+          {&quot;hello-signed-int<span class="tag-prefix">:i</span>&quot;: "42"}
         </div>
         <p>
           The following is an example of an <strong>unsigned integer</strong>, which can be any value
           in the range <em>0</em> to <em>(2**64)-1</em>:
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">u:</span>18446744073709551615&quot;
+          {&quot;hello-unsigned-int<span class="tag-prefix">:u</span>&quot;: "18446744073709551615"}
         </div>
         <p>
           Integers otherwise utilize the <em>int</em> syntax as described in the JSON specification.
@@ -200,38 +310,11 @@ title: "TJSON: Tagged JSON with rich type annotations"
           timestamps are Z-normalized):
         </p>
         <div class="syntax-example">
-          &quot;<span class="tag-prefix">t:</span>2016-10-02T07:31:51Z&quot;
+          {&quot;hello-timestamp<span class="tag-prefix">:t</span>&quot;: "2016-10-02T07:31:51Z"}
         </div>
         <p>
           TJSON parsers should expressly reject the use of other time zone identifiers
           and fail with an exception.
-        </p>
-      </div>
-
-      <div class="subsection">
-        <h2 class="page-header">Objects</h2>
-        <p>
-          Objects (name/value dictionaries) use the same syntax in TJSON, but the name literal
-          is restricted to being either a UTF-8 String or Binary Data:
-        </p>
-
-        <h3>UTF-8 String Member Name</h3>
-        <div class="syntax-example">
-          {&quot;<span class="tag-prefix">s:</span>key&quot;: ...}
-        </div>
-
-        <h3>Binary Data Member Name</h3>
-        <div class="syntax-example">
-          {&quot;<span class="tag-prefix">b64:</span>YmluYXJ5IGtleQ&quot;: ...}
-        </div>
-
-        <p>
-          TJSON parsers should expressly reject the use of other types as member names.
-        </p>
-
-        <p>
-          Member names in TJSON must be distinct. The use of the same member name more
-          than once in the same object is an error.
         </p>
       </div>
     </div>

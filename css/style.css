@@ -95,6 +95,11 @@ a.header-gitter:before {
   border: 1px solid #eeeeee;
 }
 
+.syntax-invalid {
+  background-color: #ffcccc;
+  border: 1px solid #ffbbbb;
+}
+
 @media only screen and (min-width : 768px) {
   .syntax-example {
     font-size: 1.75em;
