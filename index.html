@@ -13,19 +13,15 @@ title: "TJSON: Tagged JSON with rich type annotations"
       </div>
       <div id="introduction">
         <p>
-          <strong>TJSON</strong> (Tagged JSON) is a standard tagging scheme for richly typed data
-          stored inside of <a href="http://www.json.org">JSON</a> strings. It augments the existing
-          types already present in JSON in a way that's both unobtrusive and fully syntactically
-          compatible with existing JSON (i.e all TJSON documents are valid JSON documents and can
-          be understood by existing JSON parsers)
-        </p>
-        <p>
-          It codifies ad hoc practices already commonly seen throughout JSON into a standard format
-          for rich data which is self-describing and fully transcodable.
+          <strong>TJSON</strong> (Tagged JSON) is a tagging scheme/microformat for enriching
+          the types that can be sored in <a href="http://www.json.org">JSON</a> documents.
+          It augments the existing types present in JSON, codifiying ad hoc practices already
+          commonly used for processing JSON into a schema-free, self-describing format.
         </p>
         <p>
           TJSON documents are amenable to "content-aware hashing" where different encodings of the
-          same data can share the same content hash and therefore the same cryptographic signature.
+          same data (including both TJSON and binary formats like Protocol Buffers, MessagePack,
+          BSON, etc) can share the same content hash and therefore the same cryptographic signature.
           This is possible with content hash algorithms that are aware of the underlying structure
           of data, such as
           <a href="https://github.com/benlaurie/objecthash">Ben Laurie's objecthash</a>.
