@@ -26,6 +26,17 @@ title: "TJSON: Frequently Asked Questions"
 </p>
 
 <h5>
+  Q: Why not use a schema language like <a
+  href="http://http://json-schema.org/">JSON Schema</a>?
+</h5>
+<p>
+  Schema languages are great, however they have not proven to be popular among
+  the users of JSON, and the majority of JSON is consumed in a schema-free
+  manner. TJSON allows those consuming JSON in a schema-free manner to get
+  some of the benefits of schema languages without having to fully adopt one.
+</p>
+
+<h5>
   Q: How do you avoid the fact that <a
      href="http://seriot.ch/parsing_json.html">parsing JSON is a minefield</a>?
 </h5>
@@ -58,7 +69,12 @@ title: "TJSON: Frequently Asked Questions"
   A: TJSON is intended to support format-independent cryptographic authentication
   using the <a href="https://github.com/benlaurie/objecthash">objecthash</a>
   content hash algorithm. This algorithm produces digests which are the same
-  same whether a document is encoded in a binary format or encoded as TJSON.
+  whether a document is encoded in a binary format or encoded as TJSON.
+</p>
+
+<h5>Q: Aren't you just reinventing XML?</h5>
+<p>
+   No.
 </p>
 
 </div>
