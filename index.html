@@ -38,8 +38,12 @@ title: "TJSON: Tagged JSON with rich type annotations"
           </li>
           <li>
             <strong>Arrays:</strong>
-            Lists of values; identical to JSON, but typed by their containing objects. Unlike
+            Lists of values: identical to JSON, but typed by their containing objects. Unlike
             JSON, arrays cannot be used as a top-level expression: only objects are allowed.
+          </li>
+          <li>
+            <strong>Sets:</strong>
+            Lists of unique values: similar to an array, but repeated elements are disallowed.
           </li>
           <li>
             <strong>Strings:</strong>
@@ -74,8 +78,9 @@ title: "TJSON: Tagged JSON with rich type annotations"
           </li>
 
           <li>
-            <strong>Value types:</strong>
-            TJSON supports the <em>true</em>, <em>false</em>, and <em>null</em> values from JSON.
+            <strong>Boolean Values:</strong>
+            TJSON supports the <em>true</em> and <em>false</em> values from JSON
+            (<em>null</em> is expressly disallowed).
           </li>
         </ul>
       </div>
@@ -304,12 +309,14 @@ title: "TJSON: Tagged JSON with rich type annotations"
         </p>
         <h3>Floating Points</h3>
         <p>
-          Floating points use the native number literal syntax provided by JSON and are not stored
-          as a tagged string:
+          Floating points use the native number literal syntax provided by JSON:
         </p>
-        <div class="syntax-example">0.42</div>
+        <div class="syntax-example">
+          {&quot;hello-float<span class="tag-prefix">:f</span>&quot;: "0.42"}
+        </div>
         <p>
-          TJSON libraries should ensure that the resulting type for any such literals is a float.
+          The full <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE 754</a>
+          64-bit floating point range is supported.
         </p>
       </div>
 
