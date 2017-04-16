@@ -309,10 +309,11 @@ title: "TJSON: Tagged JSON with rich type annotations"
         </p>
         <h3>Floating Points</h3>
         <p>
-          Floating points use the native number literal syntax provided by JSON:
+          Floating points use the native number literal syntax provided by JSON. Unlike integers,
+          TJSON floats must not be quoted:
         </p>
         <div class="syntax-example">
-          {&quot;hello-float<span class="tag-prefix">:f</span>&quot;: "0.42"}
+          {&quot;hello-float<span class="tag-prefix">:f</span>&quot;: 0.42}
         </div>
         <p>
           The full <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE 754</a>
