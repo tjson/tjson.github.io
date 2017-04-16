@@ -191,6 +191,27 @@ title: "TJSON: Tagged JSON with rich type annotations"
       </div>
 
       <div class="subsection">
+        <h2 class="page-header">Sets</h2>
+        <p>
+          Sets use a syntax that's nearly identical to arrays, but require
+          elements within the set are unique:
+        </p>
+
+        <div class="syntax-example">
+          {&quot;valid-set<span class="tag-prefix">:S&lt;s&gt;gt;</span>&quot;: ["One", "Two", "Three"]}
+        </div>
+
+        <p>
+          Sets containing repeated items are invalid and are rejected by
+          compliant parsers:
+        </p>
+
+        <div class="syntax-example syntax-invalid">
+          {&quot;invalid-set<span class="tag-prefix">:S&lt;s&gt;</span>&quot;: ["One", "One", "One"]}
+        </div>
+      </div>
+
+      <div class="subsection">
         <h2 class="page-header">Strings</h2>
         <p>
           As an element of an array, or a member of an object, strings have the same syntax as
