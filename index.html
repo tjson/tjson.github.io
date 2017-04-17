@@ -343,6 +343,21 @@ title: "TJSON: Tagged JSON with rich type annotations"
       </div>
 
       <div class="subsection">
+        <h2 class="page-header">Boolean Values</h2>
+        <p>
+          TJSON supports the <span class="inline-syntax">true</span> and
+          <span class="inline-syntax">false</span> values from JSON:
+        </p>
+        <div class="syntax-example">
+          {&quot;hello-true<span class="tag-prefix">:v</span>&quot;: true, &quot;hello-false<span class="tag-prefix">:v</span>&quot;: false}
+        </div>
+        <p>
+          The <span class="inline-syntax">null</span> value is expressly
+          disallowed anywhere inside of a TJSON document.
+        </p>
+      </div>
+
+      <div class="subsection">
         <h2 class="page-header">Timestamp</h2>
         <p>
           TJSON adds a literal syntax for timestamp values. The format is based on

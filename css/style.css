@@ -111,3 +111,9 @@ a.header-gitter:before {
   color: #ba160c;
   padding: 0 2px;
 }
+
+.inline-syntax {
+  display: inline;
+  color: #a94442;
+  margin: 0;
+}
