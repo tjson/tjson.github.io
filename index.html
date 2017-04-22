@@ -166,7 +166,7 @@ title: "TJSON: Tagged JSON with rich type annotations"
         </p>
 
         <p>
-          The syntax can be nested to support multidimensional arrays:
+          The syntax may be nested to support multidimensional arrays:
         </p>
 
         <div class="syntax-example">
@@ -182,7 +182,7 @@ title: "TJSON: Tagged JSON with rich type annotations"
         </div>
 
         <p>
-          The inner type parameter can be omitted for empty arrays:
+          The inner type parameter may be omitted for empty arrays:
         </p>
 
         <div class="syntax-example">
@@ -239,9 +239,9 @@ title: "TJSON: Tagged JSON with rich type annotations"
         <h2 class="page-header">Binary Data</h2>
         <p>
           TJSON supports multiple different formats for encoding 8-bit clean binary data.
-          Decoders are encouraged to support them all. The default is
+          Conforming encoders/decoders are required to support them all. The default is
           <strong>base64url</strong>,
-          however encoders can be configured with alternative, potentially more visually
+          however encoders may be configured with alternative, potentially more visually
           appealing or well-recognized encodings for specific fields.
         </p>
 
@@ -312,15 +312,15 @@ title: "TJSON: Tagged JSON with rich type annotations"
           JSON parsers that do floating point conversions.
         </p>
         <p>
-          The following is an example of a <strong>signed integer</strong>, which can be any value
-          in the range <em>-(2**63)</em> to <em>(2**63)-1</em>.
+          The following is an example of a <strong>signed integer</strong>, which may be any
+          value in the range <em>-(2**63)</em> to <em>(2**63)-1</em>.
         </p>
         <div class="syntax-example">
           {&quot;hello-signed-int<span class="tag-prefix">:i</span>&quot;: "42"}
         </div>
         <p>
-          The following is an example of an <strong>unsigned integer</strong>, which can be any value
-          in the range <em>0</em> to <em>(2**64)-1</em>:
+          The following is an example of an <strong>unsigned integer</strong>, which may be
+          any value in the range <em>0</em> to <em>(2**64)-1</em>:
         </p>
         <div class="syntax-example">
           {&quot;hello-unsigned-int<span class="tag-prefix">:u</span>&quot;: "18446744073709551615"}
