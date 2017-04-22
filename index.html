@@ -245,12 +245,12 @@ title: "TJSON: Tagged JSON with rich type annotations"
           appealing or well-recognized encodings for specific fields.
         </p>
 
-        <h3>Hexadecimal (a.k.a. Base16)</h3>
+        <h3>Hexadecimal Data (a.k.a. Base16)</h3>
         <p>
-          Encodes binary data in lower-case hexadecimal format:
+          Data tagged as "d16" is encoded in lower-case hexadecimal format:
         </p>
         <div class="syntax-example">
-          {&quot;hello-base-sixteen<span class="tag-prefix">:b16</span>&quot;: "48656c6c6f2c20776f726c6421"}
+          {&quot;hello-base-sixteen<span class="tag-prefix">:d16</span>&quot;: "48656c6c6f2c20776f726c6421"}
         </div>
         <p>
           TJSON parsers should expressly reject the use of any upper case hexadecimal characters
@@ -259,11 +259,11 @@ title: "TJSON: Tagged JSON with rich type annotations"
 
         <h3>Base32</h3>
         <p>
-          Encodes binary data in "base32" format as specified in
+          Data tagged as "d32" is encoded in "base32" format as specified in
           <a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:
         </p>
         <div class="syntax-example">
-          {&quot;hello-base-thirty-two<span class="tag-prefix">:b32</span>&quot;: "jbswy3dpfqqho33snrscc"}
+          {&quot;hello-base-thirty-two<span class="tag-prefix">:d32</span>&quot;: "jbswy3dpfqqho33snrscc"}
         </div>
         <p>
           The encoded data should <em>NOT</em> be padded with "<b>=</b>" characters as it's stored
@@ -276,11 +276,11 @@ title: "TJSON: Tagged JSON with rich type annotations"
 
         <h3>Base64url</h3>
         <p>
-          Encodes binary data in "base64url" format as specified in
+          Data tagged "d64" is encoded in in "base64url" format as specified in
           <a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:
         </p>
         <div class="syntax-example">
-          {&quot;hello-base-sixty-four-url<span class="tag-prefix">:b64</span>&quot;: "SGVsbG8sIHdvcmxkIQ"}
+          {&quot;hello-base-sixty-four-url<span class="tag-prefix">:d64</span>&quot;: "SGVsbG8sIHdvcmxkIQ"}
         </div>
         <p>
           The encoded data should <em>NOT</em> be padded with "<b>=</b>" characters as it's stored
@@ -292,11 +292,11 @@ title: "TJSON: Tagged JSON with rich type annotations"
           rejected)
         </p>
         <p>
-          Because "base64url" is the default encoding for TJSON, the following shorthand variant
-          of the type name is available, and <em>SHOULD</em> be used by default:
+          Because "base64url" is the default encoding for TJSON, the shorthand "d" variant
+          <em>SHOULD</em> be used by default unless another format is specified:
         </p>
         <div class="syntax-example">
-          {&quot;base-sixty-four-is-default<span class="tag-prefix">:b</span>&quot;: "SGVsbG8sIHdvcmxkIQ"}
+          {&quot;base-sixty-four-is-default<span class="tag-prefix">:d</span>&quot;: "SGVsbG8sIHdvcmxkIQ"}
         </div>
       </div>
 
@@ -349,7 +349,7 @@ title: "TJSON: Tagged JSON with rich type annotations"
           <span class="inline-syntax">false</span> values from JSON:
         </p>
         <div class="syntax-example">
-          {&quot;hello-true<span class="tag-prefix">:v</span>&quot;: true, &quot;hello-false<span class="tag-prefix">:v</span>&quot;: false}
+          {&quot;hello-true<span class="tag-prefix">:b</span>&quot;: true, &quot;hello-false<span class="tag-prefix">:v</span>&quot;: false}
         </div>
         <p>
           The <span class="inline-syntax">null</span> value is expressly
